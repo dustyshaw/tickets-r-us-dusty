@@ -18,7 +18,7 @@ jobs:
         run: rm -rf ./ticketsrus-dusty-mustafa-ethan/ 
       - name: Check out repository code
         run: |
-          git clone "https://${{ secrets.DS_ACCESS_TOKEN2 }}@github.com/SnowSE/ticketsrus-dusty-mustafa-ethan"
+          git clone "https://${{ secrets.DUSTYS_THIRD_GITHUB_SECRET }}@github.com/SnowSE/ticketsrus-dusty-mustafa-ethan"
           ls -a
       - name: Docker Compose Up
         run: |
