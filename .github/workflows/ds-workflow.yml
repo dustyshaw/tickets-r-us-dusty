@@ -24,7 +24,7 @@ jobs:
         run: |
           cd ./ticketsrus-dusty-mustafa-ethan/MobileApp/dscompose
           ls -a
-          docker compose up --build -d
+          docker compose up --build -d 
       # - name: Linting
       #   run: |
       #     cd ./ticketsrus-dusty-mustafa-ethan/MobileApp/
@@ -32,7 +32,7 @@ jobs:
       #     dotnet format --verify-no-changes --severity warn
       - name: Integration Tests
         run: |
-          cd ./ticketsrus-dusty-mustafa-ethan/MobileApp/TestsRUS/
+          cd ./ticketsrus-dusty-mustafa-ethan/MobileApp/TestsRUS/     
           dotnet test   
       - name: Unit Tests
         run: |
