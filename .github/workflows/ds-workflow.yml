@@ -1,0 +1,49 @@
+name: Dustys Github Action Workflow
+run-name: ${{ github.event.head_commit.message }} - Dusty's Gitub Action Workflow 🛸
+on: [push]
+jobs:
+  Dusty-Deploy-Pipeline:
+    runs-on: dusty
+    steps:
+      - name: See where I'm at
+        run: |
+          ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
+      # - name: Docker compose down first
+      #   run: |
+      #     ls -a
+      #     cd ./MobileApp/dscompose
+      #     ls -a
+      #     docker compose down -v     
+      - name: Remove old stuff?
+        run: rm -rf ./ticketsrus-dusty-mustafa-ethan/ 
+      - name: Check out repository code
+        run: |
+          git clone "https://${{ secrets.DS_ACCESS_TOKEN2 }}@github.com/SnowSE/ticketsrus-dusty-mustafa-ethan"
+          ls -a
+      - name: Docker Compose Up
+        run: |
+          cd ./ticketsrus-dusty-mustafa-ethan/MobileApp/dscompose
+          ls -a
+          docker compose up --build -d
+      # - name: Linting
+      #   run: |
+      #     cd ./ticketsrus-dusty-mustafa-ethan/MobileApp/
+      #     ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
+      #     dotnet format --verify-no-changes --severity warn
+      - name: Integration Tests
+        run: |
+          cd ./ticketsrus-dusty-mustafa-ethan/MobileApp/TestsRUS/
+          dotnet test   
+      - name: Unit Tests
+        run: |
+          cd ./ticketsrus-dust-mustafa-ethan/MobileApp/UnitTestsRUs/
+          dotnet test
+      - name: Teams Notification
+        uses: skitionek/notify-microsoft-teams@master
+        if: always()
+        with:
+          webhook_url: ${{ secrets.DUSTY_WEBHOOK }}
+          needs: ${{ toJson(needs) }}
+          job: ${{ toJson(job) }}
+          steps: ${{ toJson(steps) }}
+          overwrite: "{title: `Dusty pushed to github ${workflow_link}`}"
