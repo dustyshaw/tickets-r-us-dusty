@@ -42,7 +42,7 @@ jobs:
         uses: skitionek/notify-microsoft-teams@master
         if: always()
         with:
-          webhook_url: ${{ secrets.DUSTY_WEBHOOK }}
+          webhook_url: ${{ secrets.DUSTYS_WEBHOOK }}
           needs: ${{ toJson(needs) }}
           job: ${{ toJson(job) }}
           steps: ${{ toJson(steps) }}
