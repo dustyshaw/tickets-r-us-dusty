@@ -1,5 +1,6 @@
 ﻿using System.Xml.Linq;
 using Microsoft.EntityFrameworkCore;
+using OpenTelemetry.Trace;
 using TicketClassLib.Data;
 using TicketClassLib.Services;
 using TicketWebApp.Data;
@@ -37,6 +38,8 @@ public class ApiEventService(IDbContextFactory<PostgresContext> dbFactory) : IEv
 
     public async Task<List<Event>> GetAll()
     {
+        using var myActivity = DustyTelemetry.MyActivitySource.StartActivity("Events.GetAll");
+
         using var context = await dbFactory.CreateDbContextAsync();
 
         return await context.Events

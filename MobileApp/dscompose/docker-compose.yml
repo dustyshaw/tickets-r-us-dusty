@@ -19,7 +19,8 @@ services:
       - db        # database must build first before blazor app
     build: ..     # builds in the directory ABOVE because that's where the Dockerfile is at
     environment:
-      - db=user id=postgres; password=postgres; server=db; database=postgres;
+      - TicketsDB=user id=postgres; password=postgres; server=db; database=postgres;
+      - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "7070:8080"   # website will be found at localhost:7070 
     networks:

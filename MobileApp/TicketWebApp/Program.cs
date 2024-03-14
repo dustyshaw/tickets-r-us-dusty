@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Options;
+using OpenTelemetry.Exporter;
 using OpenTelemetry.Logs;
+using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using TicketClassLib.Services;
@@ -32,7 +34,6 @@ builder.Services.AddScoped<EmailSender>();
 
 builder.Services.AddHealthChecks();
 
-// Add add builder.logging.addopentelem for logging specifically
 const string serviceName = "dustys-service";
 var serviceVersion = "1.0.0";
 
@@ -44,25 +45,44 @@ builder.Logging.AddOpenTelemetry(options =>
                 .AddService(serviceName))
         .AddOtlpExporter(opt =>
             {
-                opt.Endpoint = new Uri("http://otel-collector:4317"); // not sure what url this is
+                opt.Endpoint = new Uri("http://otel-collector:4317"); // in docker compose, this is the OTLP receiver port
             })
         .AddConsoleExporter(); // optional
 });
-// Add logging.addtelemetry Opentelemetry.io > Language APIS and SDKs > .NET (website)
-// inside adding open telemetry, add oltp exporter with grpc endpoint found in docker-compose
+
+
 builder.Services.AddOpenTelemetry()
-    .WithTracing(b => 
-    {
-     b
-        .AddSource(serviceName)
-        .ConfigureResource(resource => 
-            resource.AddService( 
-                serviceName: serviceName
-                ,serviceVersion: serviceVersion
-                ))
-        .AddAspNetCoreInstrumentation()
-        .AddConsoleExporter();
-    });
+      .ConfigureResource(resource => resource.AddService(serviceName))
+      .WithTracing(tracing => tracing
+          .AddAspNetCoreInstrumentation()
+          .AddConsoleExporter()
+          .AddOtlpExporter(opt =>
+            {
+                opt.Endpoint = new Uri("http://otel-collector:4317"); // in docker compose, this is the OTLP receiver port
+            })
+            .AddSource(Traces.EventsTrace))
+      .WithMetrics(metrics => metrics
+          .AddAspNetCoreInstrumentation()
+          .AddConsoleExporter()
+          );
+
+// builder.Logging.AddOpenTelemetry(options =>
+// {
+//     options
+//         .SetResourceBuilder(
+//             ResourceBuilder.CreateDefault()
+//                 .AddService(serviceName))
+//         .AddConsoleExporter();
+// });
+// builder.Services.AddOpenTelemetry()
+//       .ConfigureResource(resource => resource.AddService(serviceName))
+//       .WithTracing(tracing => tracing
+//           .AddAspNetCoreInstrumentation()
+//           .AddConsoleExporter()
+//           .AddSource("my-first-trace"))
+//       .WithMetrics(metrics => metrics
+//           .AddAspNetCoreInstrumentation()
+//           .AddConsoleExporter());
 
 var app = builder.Build();
 
@@ -70,9 +90,7 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
-
 }
 
 app.MapHealthChecks("/healthCheck", new HealthCheckOptions
