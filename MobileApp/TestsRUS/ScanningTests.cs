@@ -49,7 +49,7 @@ public class ScanningTests : IClassFixture<TicketsApiFactory>
         };
         var response = await client.PostAsJsonAsync($"Ticket/newTicket", newTicketRequest);
         var ticket = await response.Content.ReadFromJsonAsync<Ticket>();
-        var ticketId = ticket.Id.ToString();
+        var ticketId = ticket?.Id.ToString();
 
         //Act
         var scanResponse = await client.PatchAsync($"ticket/scanticket/{ticketId}/{1}", null);
@@ -70,7 +70,7 @@ public class ScanningTests : IClassFixture<TicketsApiFactory>
         };
         var response = await client.PostAsJsonAsync($"Ticket/newTicket", newTicketRequest); //Create a new ticket
         var ticket = await response.Content.ReadFromJsonAsync<Ticket>(); //Read the ticket
-        var ticketId = ticket.Id.ToString(); //Get the ticket id
+        var ticketId = ticket?.Id.ToString(); //Get the ticket id
         var scanResponse = await client.PatchAsync($"ticket/scanticket/{ticketId}/{1}", null); //Scan the ticket
         var scanTicket = await scanResponse.Content.ReadFromJsonAsync<TicketStatus>(); //Read the ticket status
 
@@ -97,7 +97,7 @@ public class ScanningTests : IClassFixture<TicketsApiFactory>
         };
         var response = await client.PostAsJsonAsync($"Ticket/newTicket", newTicketRequest); //Create a new ticket
         var ticket = await response.Content.ReadFromJsonAsync<Ticket>(); //Read the ticket
-        var ticketId = ticket.Id.ToString(); //Get the ticket id
+        var ticketId = ticket?.Id.ToString(); //Get the ticket id
         var scanResponse = await client.PatchAsync($"ticket/scanticket/{ticketId}/{1}", null); //Scan the ticket
 
         // Act
