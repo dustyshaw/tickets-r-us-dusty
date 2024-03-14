@@ -42,7 +42,7 @@ public class ApiTicketService(IDbContextFactory<PostgresContext> dbFactory) : IT
     {
         using var context = await dbFactory.CreateDbContextAsync();
         return await context.Tickets
-            .Include(t => t.Event)
+            .Include(t=>t.Event)
             .ToListAsync();
     }
 
