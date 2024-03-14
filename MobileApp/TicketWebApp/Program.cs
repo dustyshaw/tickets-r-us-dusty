@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Options;
+using MyTraces;
 using OpenTelemetry.Exporter;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
@@ -35,7 +36,6 @@ builder.Services.AddScoped<EmailSender>();
 builder.Services.AddHealthChecks();
 
 const string serviceName = "dustys-service";
-var serviceVersion = "1.0.0";
 
 builder.Logging.AddOpenTelemetry(options =>
 {
@@ -60,7 +60,7 @@ builder.Services.AddOpenTelemetry()
             {
                 opt.Endpoint = new Uri("http://otel-collector:4317"); // in docker compose, this is the OTLP receiver port
             })
-            .AddSource(Traces.EventsTrace))
+            .AddSource(GetAllEventsTrace.EventsTraceServiceName))
       .WithMetrics(metrics => metrics
           .AddAspNetCoreInstrumentation()
           .AddConsoleExporter()

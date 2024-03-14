@@ -1,6 +1,6 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
-namespace MobileApp.Traces
+namespace MyTraces
 {
     public static class GetAllEventsTrace
     {
