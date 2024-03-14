@@ -15,28 +15,28 @@ jobs:
       #     ls -a
       #     docker compose down -v     
       - name: Remove old stuff?
-        run: rm -rf ./ticketsrus-dusty-mustafa-ethan/ 
+        run: rm -rf ./tickets-r-us-dusty/ 
       - name: Check out repository code
         run: |
           git clone "https://${{ secrets.DUSTYS_THIRD_GITHUB_SECRET }}@github.com/dustyshaw/tickets-r-us-dusty"
           ls -a
       - name: Docker Compose Up
         run: |
-          cd ./ticketsrus-dusty-mustafa-ethan/MobileApp/dscompose
+          cd ./tickets-r-us-dusty/MobileApp/dscompose
           ls -a
           docker compose up --build -d 
       # - name: Linting
       #   run: |
-      #     cd ./ticketsrus-dusty-mustafa-ethan/MobileApp/
+      #     cd ./tickets-r-us-dusty/MobileApp/
       #     ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
       #     dotnet format --verify-no-changes --severity warn
       - name: Integration Tests
         run: |
-          cd ./ticketsrus-dusty-mustafa-ethan/MobileApp/TestsRUS/     
+          cd ./tickets-r-us-dusty/MobileApp/TestsRUS/     
           dotnet test   
       - name: Unit Tests
         run: |
-          cd ./ticketsrus-dust-mustafa-ethan/MobileApp/UnitTestsRUs/
+          cd ./tickets-r-us-dusty/MobileApp/UnitTestsRUs/
           dotnet test
       - name: Teams Notification
         uses: skitionek/notify-microsoft-teams@master
