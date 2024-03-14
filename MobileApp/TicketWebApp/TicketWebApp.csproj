@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>39ea7082-092c-44f4-a9b1-167a6dabbdc5</UserSecretsId>
 		<NoWarn>8601</NoWarn>
-		<NoWarn>3277</NoWarn>
+		<NoWarn>MSB3277</NoWarn>
 		<NoWarn>1206</NoWarn>
     <UseRidGraph>true</UseRidGraph>
   </PropertyGroup>
@@ -18,6 +18,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.3" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.2" />
     <PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.7.0" />
     <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.7.0" />
