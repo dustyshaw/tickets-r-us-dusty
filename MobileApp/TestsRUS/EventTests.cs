@@ -21,6 +21,7 @@ public class EventTests : IClassFixture<TicketsApiFactory>
         var response = await _httpClient.GetFromJsonAsync<List<Event>>("Event/getAll");
 
         //Assert
-        response?.Count.Should().Be(2);
+        //  response?.Count.Should().Be(2);
+        response?.Count.Should().Be(10000);
     }
 }
