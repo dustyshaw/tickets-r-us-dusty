@@ -1,11 +1,11 @@
 ﻿using System.Xml.Linq;
 using Microsoft.EntityFrameworkCore;
+using MyTraces;
 using OpenTelemetry.Trace;
 using TicketClassLib.Data;
 using TicketClassLib.Services;
 using TicketWebApp.Data;
 using static System.Runtime.InteropServices.JavaScript.JSType;
-using MyTraces;
 
 namespace TicketWebApp.Services;
 
@@ -39,7 +39,7 @@ public class ApiEventService(IDbContextFactory<PostgresContext> dbFactory) : IEv
 
     public async Task<List<Event>> GetAll()
     {
-        using var myActivity =  GetAllEventsTrace.MyActivitySource.StartActivity("Events.GetAll");
+        using var myActivity = GetAllEventsTrace.MyActivitySource.StartActivity("Events.GetAll");
 
         using var context = await dbFactory.CreateDbContextAsync();
 

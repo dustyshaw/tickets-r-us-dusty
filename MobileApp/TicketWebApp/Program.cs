@@ -63,7 +63,7 @@ builder.Services.AddOpenTelemetry()
             {
                 opt.Endpoint = new Uri("http://otel-collector:4317"); // in docker compose, this is the OTLP receiver port
             })
-            .AddZipkinExporter(o => 
+            .AddZipkinExporter(o =>
             {
                 o.Endpoint = new Uri("http://zipkin:9411");
             })
