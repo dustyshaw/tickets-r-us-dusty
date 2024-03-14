@@ -1,5 +1,7 @@
-﻿using System.Reflection.Metadata.Ecma335;
+﻿using System.Diagnostics;
+using System.Reflection.Metadata.Ecma335;
 using Microsoft.AspNetCore.Mvc;
+using MyMetrics;
 using TicketClassLib.Data;
 using TicketClassLib.Services;
 
@@ -12,6 +14,8 @@ public class EventController(IEventService eventService) : ControllerBase
     [HttpGet("getAll")]
     public async Task<List<Event>> GetAll()
     {
+        EventsMetic.NumOfCalls.Add(1);
+
         var events = await eventService.GetAll();
         return events;
     }

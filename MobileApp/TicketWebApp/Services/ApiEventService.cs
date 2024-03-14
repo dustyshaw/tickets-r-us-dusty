@@ -50,6 +50,8 @@ public class ApiEventService(IDbContextFactory<PostgresContext> dbFactory) : IEv
 
     public async Task<Event?> GetEvent(int id)
     {
+        using var myActivity = GetOneEventTrace.GetSingleEventActivitySource.StartActivity("Events.GetOne");
+
         using var context = await dbFactory.CreateDbContextAsync();
 
         return await context.Events

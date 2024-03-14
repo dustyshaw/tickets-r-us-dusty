@@ -1,5 +1,9 @@
 ﻿@page "/"
 
+@rendermode InteractiveServer
+
+@inject IEventService eventService 
+
 <PageTitle>Home</PageTitle>
 
 <h1>Tickets R Us</h1>
@@ -7,4 +11,24 @@
 Buy Tickets and scan your ticket at the gate.<br />
 <a href="/all"<button class="btn btn-primary m-5">Buy Tickets Today!</button></a>
 
+<button @onclick="GetEvent">Get Event</button>
 
+@if (SuccessMessage is not null)
+{
+    <p>@SuccessMessage</p>
+}
+
+@code {
+    public string SuccessMessage = "";
+    public void GetEvent() {
+        try
+        {
+            eventService.GetEvent(1);
+            SuccessMessage = "Success!";
+        }
+        catch 
+        {
+            SuccessMessage = "Something went wrong getting event!";
+        }
+    }
+}

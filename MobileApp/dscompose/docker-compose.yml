@@ -112,11 +112,12 @@ services:
       - 4310:4317   # OTLP gRPC receiver
       - 9205:55679  # zpages
       - 13130:13133 # Health check Need to change?
+      - 1234:1234
     networks:
       otel:
   
   zipkin:
-    image: ghcr.io/openzipkin/zipkin-slim:${TAG:-latest}
+    image: openzipkin/zipkin
     container_name: zipkin
     ports:
       - 9405:9411
