@@ -14,6 +14,8 @@ exporters:
     endpoint: http://loki:3100/loki/api/v1/push
     tls:
       insecure: true
+  zipkin:
+    endpoint: zipkin:9411
 
 extensions:
   health_check:
@@ -33,7 +35,7 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [zipkin]
+      exporters: [zipkin, otlp]
     logs:
       receivers: [otlp]
       processors: [batch]

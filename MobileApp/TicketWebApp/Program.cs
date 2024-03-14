@@ -5,6 +5,7 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Options;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using TicketClassLib.Services;
 using TicketWebApp.Components;
 using TicketWebApp.Data;
@@ -33,6 +34,7 @@ builder.Services.AddHealthChecks();
 
 // Add add builder.logging.addopentelem for logging specifically
 const string serviceName = "dustys-service";
+var serviceVersion = "1.0.0";
 
 builder.Logging.AddOpenTelemetry(options =>
 {
@@ -48,6 +50,19 @@ builder.Logging.AddOpenTelemetry(options =>
 });
 // Add logging.addtelemetry Opentelemetry.io > Language APIS and SDKs > .NET (website)
 // inside adding open telemetry, add oltp exporter with grpc endpoint found in docker-compose
+builder.Services.AddOpenTelemetry()
+    .WithTracing(b => 
+    {
+     b
+        .AddSource(serviceName)
+        .ConfigureResource(resource => 
+            resource.AddService( 
+                serviceName: serviceName
+                ,serviceVersion: serviceVersion
+                ))
+        .AddAspNetCoreInstrumentation()
+        .AddConsoleExporter();
+    });
 
 var app = builder.Build();
 

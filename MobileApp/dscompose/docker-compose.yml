@@ -113,6 +113,14 @@ services:
       - 13130:13133 # Health check Need to change?
     networks:
       otel:
+  
+  zipkin:
+    image: ghcr.io/openzipkin/zipkin-slim:${TAG:-latest}
+    container_name: zipkin
+    ports:
+      - 9405:9411
+    networks:
+      otel:
 
 networks:
   databaseTunnel:
