@@ -8,6 +8,7 @@
 		<NoWarn>8601</NoWarn>
 		<NoWarn>3277</NoWarn>
 		<NoWarn>1206</NoWarn>
+    <UseRidGraph>true</UseRidGraph>
   </PropertyGroup>
 
   <ItemGroup>
