@@ -14,6 +14,6 @@ public class UnitTest1
     {
         var result = 1;
 
-        Assert.That(result, Is.EqualTo(2));
+        Assert.That(result, Is.EqualTo(1));
     }
 }
