@@ -1,5 +1,6 @@
 ﻿using System.Xml.Linq;
 using Microsoft.EntityFrameworkCore;
+using MyMetrics;
 using MyTraces;
 using OpenTelemetry.Trace;
 using TicketClassLib.Data;
@@ -13,6 +14,7 @@ public class ApiEventService(IDbContextFactory<PostgresContext> dbFactory) : IEv
 {
     public async Task<Event> AddEvent(string name, DateTime date)
     {
+        EventsMetic.NumOfCalls.Add(1);
         using var context = await dbFactory.CreateDbContextAsync();
         Event newEvent = new Event()
         {
@@ -29,6 +31,7 @@ public class ApiEventService(IDbContextFactory<PostgresContext> dbFactory) : IEv
 
     public async Task<Event> AddEvent(Event newEvent)
     {
+        EventsMetic.NumOfCalls.Add(1);
         using var context = await dbFactory.CreateDbContextAsync();
 
         var value = await context.Events.AddAsync(newEvent);
@@ -39,6 +42,7 @@ public class ApiEventService(IDbContextFactory<PostgresContext> dbFactory) : IEv
 
     public async Task<List<Event>> GetAll()
     {
+        EventsMetic.NumOfCalls.Add(1);
         using var myActivity = GetAllEventsTrace.MyActivitySource.StartActivity("Events.GetAll");
 
         using var context = await dbFactory.CreateDbContextAsync();
@@ -50,6 +54,7 @@ public class ApiEventService(IDbContextFactory<PostgresContext> dbFactory) : IEv
 
     public async Task<Event?> GetEvent(int id)
     {
+        EventsMetic.NumOfCalls.Add(1);
         using var myActivity = GetOneEventTrace.GetSingleEventActivitySource.StartActivity("Events.GetOne");
 
         using var context = await dbFactory.CreateDbContextAsync();

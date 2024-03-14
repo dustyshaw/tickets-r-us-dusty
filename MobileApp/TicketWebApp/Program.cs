@@ -66,17 +66,15 @@ builder.Services.AddOpenTelemetry()
             .AddZipkinExporter(o =>
             {
                 o.Endpoint = new Uri("http://zipkin:9411");
-            })
-            )
+            }))
       .WithMetrics(metrics => metrics
           //.SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(EventsMetic.MyMeterName))
-          .AddMeter(EventsMetic.EventsMeter.Name)
           .AddAspNetCoreInstrumentation()
+          .AddMeter(EventsMetic.EventsMeter.Name)
+          .AddConsoleExporter()
           .AddOtlpExporter(opts =>
             opts.Endpoint = new Uri("http://otel-collector:4317")
-          )
-          //.AddConsoleExporter()
-          );
+          ));
 
 var app = builder.Build();
 
