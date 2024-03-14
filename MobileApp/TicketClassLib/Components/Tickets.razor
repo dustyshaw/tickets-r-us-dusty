@@ -12,6 +12,9 @@
         </tr>
     </thead>
     <tbody>
+        @if (AllTickets is not null)
+        {
+            
         @foreach(var ticket in AllTickets)
         {
             <tr>
@@ -20,6 +23,7 @@
                 <td>@ticket?.Event?.Name</td>
                 <td>@ticket?.Isscanned</td>
             </tr>
+        }
         }
         
     </tbody>

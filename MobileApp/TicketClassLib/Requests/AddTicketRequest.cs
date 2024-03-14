@@ -8,6 +8,6 @@ namespace TicketClassLib.Requests;
 
 public class AddTicketRequest
 {
-    public string UserName { get; set; }
+    public required string UserName { get; set; }
     public int EventId { get; set; }
 }
