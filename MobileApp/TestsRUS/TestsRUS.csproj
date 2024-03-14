@@ -8,6 +8,7 @@
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
     <NoWarn>MSB3277</NoWarn>
+    <NoWarn>1206</NoWarn>
     <UseRidGraph>true</UseRidGraph>
   </PropertyGroup>
 

@@ -4,6 +4,9 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UseRidGraph>true</UseRidGraph>
+    <NoWarn>1206</NoWarn>
+    <UseRidGraph>true</UseRidGraph>
   </PropertyGroup>
 
 
