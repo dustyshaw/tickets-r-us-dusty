@@ -11,7 +11,7 @@ jobs:
       - name: Docker compose down first
         run: |
           ls -a
-          cd ./MobileApp/dscompose
+          cd ./tickets-r-us-dusty/MobileApp/dscompose
           ls -a
           docker compose down -v     
       - name: Remove old stuff?
