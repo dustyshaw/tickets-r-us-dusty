@@ -6,7 +6,7 @@ scrape_configs:
       module: [http_2xx] # look for response code 200
     static_configs:
       - targets:
-        - http://blazorapp:7070/healthCheck   # port is from web app launchSettings.json; API endpoint in Program.cs. need to scrape 
+        - http://blazorapp:8080/healthCheck   # port is from web app launchSettings.json; API endpoint in Program.cs. need to scrape 
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
