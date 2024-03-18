@@ -8,12 +8,12 @@ jobs:
       - name: See where I'm at
         run: |
           ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
-      # - name: Docker compose down first
-      #   run: |
-      #     ls -a
-      #     cd ./MobileApp/dscompose
-      #     ls -a
-      #     docker compose down -v     
+      - name: Docker compose down first
+        run: |
+          ls -a
+          cd ./MobileApp/dscompose
+          ls -a
+          docker compose down -v     
       - name: Remove old stuff?
         run: rm -rf ./tickets-r-us-dusty/ 
 
