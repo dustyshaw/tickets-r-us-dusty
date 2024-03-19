@@ -123,6 +123,16 @@ services:
       - 9405:9411
     networks:
       otel:
+  
+  proxy:
+    image: nginx
+    container_name: dusty_proxy
+    ports:
+      - 7634:80
+    networks:
+      otel:
+    volumes:
+      - ./nginx-default.conf:/etc/nginx/conf.d/default.conf
 
 networks:
   databaseTunnel:
