@@ -9,6 +9,8 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_HOST: postgres
+      DustySecret: ${DUSTY_SECRET}
+      DustysEmail: ${DUSTYS_EMAIL}
     volumes:
       - ../TestsRUS/20240212.07.58.45.sql:/docker-entrypoint-initdb.d/initDb.sql
     networks:

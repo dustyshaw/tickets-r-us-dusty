@@ -76,6 +76,7 @@ builder.Services.AddOpenTelemetry()
             opts.Endpoint = new Uri("http://otel-collector:4317")
           ));
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
