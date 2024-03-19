@@ -11,8 +11,8 @@ class EmailSender
 
     public EmailSender(IConfiguration config)
     {
-        secretSender = config["DustySecret"] ?? throw new Exception("Missing dusty email config");
-        fromEmail = config["DustysEmail"] ?? throw new Exception("Missing dusty email password config");
+        secretSender = config["DUSTY_SECRET"] ?? throw new Exception("Missing dusty email config");
+        fromEmail = config["DUSTYS_EMAIL"] ?? throw new Exception("Missing dusty email password config");
     }
 
     public string sendEmail(MailAddress ReceiverEmail,
