@@ -1,10 +1,68 @@
 ﻿@page "/tickets"
-@rendermode InteractiveServer
 
-<h3>All Tickets</h3>
+@inject ITicketService service;
+@using TicketClassLib.Data
+@using TicketClassLib.Services
 
-<Tickets />
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">name</th>
+            <th scope="col">event</th>
+            <th scope="col">is scanned</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (AllThemTickets is not null)
+        {
+            @foreach(var ticket in AllThemTickets)
+            {
+                <tr>
+                    <th scope="row">@ticket.Id</th>
+                    <td>@ticket?.Name</td>
+                    <td>@ticket?.Event?.Name</td>
+                    <td>@ticket?.Isscanned</td>
+                </tr>
+            }
+        }
+        else
+        {
+                <tr>
+                    <th scope="row" style="color: darkred;">No Tickets</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+        }
+        
+    </tbody>
+</table>
 
 @code {
+    public List<Ticket>? AllThemTickets { get; set; } = new();
 
+    protected override async Task OnInitializedAsync()
+    {
+        AllThemTickets = await service.GetAll();
+
+        // TODO subscribe to the thingy
+        service.TicketsHaveChanged += async (s, e) => await systemUpdated();
+    }
+
+    async Task systemUpdated()
+    {
+        await InvokeAsync(async () =>
+        {
+            try
+            {
+                AllThemTickets = await service.GetAll();
+            }
+            catch
+            {
+                
+            }
+            StateHasChanged();  
+        });
+    }
 }

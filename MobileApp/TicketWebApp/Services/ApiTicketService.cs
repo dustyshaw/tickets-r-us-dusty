@@ -9,13 +9,32 @@ using TicketWebApp.Data;
 
 namespace TicketWebApp.Services;
 
-public class ApiTicketService(IDbContextFactory<PostgresContext> dbFactory) : ITicketService
+public partial class ApiTicketService : ITicketService
 {
+    private readonly ILogger<ApiTicketService> logger;
+    private readonly IDbContextFactory<PostgresContext> dbFactory;
+
+    public ApiTicketService(ILogger<ApiTicketService> logger, IDbContextFactory<PostgresContext> dbFactory)
+    {
+        this.dbFactory = dbFactory;
+        this.logger = logger;
+    }
+
+    [LoggerMessage(Level = LogLevel.Information, Message = "Dusty - ApiTicketService: Get All Tickets.")]
+#pragma warning disable SYSLIB1015 // Argument is not referenced from the logging message
+    public static partial void LogTicketServiceCall(ILogger logger, string description);
+#pragma warning restore SYSLIB1015 // Argument is not referenced from the logging message
+
+    [LoggerMessage(Level = LogLevel.Information, Message = "Dusty - ApiTicketService: Add Ticket.")]
+#pragma warning disable SYSLIB1015 // Argument is not referenced from the logging message
+    public static partial void LogCreateTicketServiceCall(ILogger logger, string description);
+#pragma warning restore SYSLIB1015 // Argument is not referenced from the logging message
 
     public event EventHandler? TicketsHaveChanged;
 
     public async Task<Ticket> CreateNewTicket(AddTicketRequest newRequest)
     {
+        LogCreateTicketServiceCall(logger, $"Adding ticket with event id {newRequest.EventId}");
 
         using var context = await dbFactory.CreateDbContextAsync();
 
@@ -40,6 +59,8 @@ public class ApiTicketService(IDbContextFactory<PostgresContext> dbFactory) : IT
 
     public async Task<List<Ticket>> GetAll()
     {
+        LogTicketServiceCall(logger, "Getting All Tickets");
+
         using var context = await dbFactory.CreateDbContextAsync();
         return await context.Tickets
             .Include(t => t.Event)
@@ -73,6 +94,8 @@ public class ApiTicketService(IDbContextFactory<PostgresContext> dbFactory) : IT
 
     public async Task<Ticket> AddTicket(Ticket ticket)
     {
+        
+
         using var context = await dbFactory.CreateDbContextAsync();
 
         await context.Tickets.AddAsync(ticket);

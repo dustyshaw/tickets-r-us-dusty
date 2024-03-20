@@ -6,11 +6,11 @@ services:
     image: postgres
     restart: always
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_HOST: postgres
-      DustySecret: ${DUSTY_SECRET}
-      DustysEmail: ${DUSTYS_EMAIL}
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=postgres
+      - DustySecret=${DUSTY_SECRET}
+      - DustysEmail=${DUSTYS_EMAIL}
     volumes:
       - ../TestsRUS/20240212.07.58.45.sql:/docker-entrypoint-initdb.d/initDb.sql
     networks:
@@ -24,7 +24,7 @@ services:
       - TicketsDB=user id=postgres; password=postgres; server=db; database=postgres;
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
-      - "7070:8080"   # website will be found at localhost:7070 
+      - "5932:8080"   # website will be found at localhost:7070 
     networks:
       otel:
     healthcheck:

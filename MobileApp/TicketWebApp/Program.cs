@@ -34,6 +34,8 @@ builder.Services.AddSingleton<IEventService, ApiEventService>();
 builder.Services.AddDbContextFactory<PostgresContext>(optionsBuilder => optionsBuilder.UseNpgsql("Name=TicketsDB"));
 builder.Services.AddScoped<EmailSender>();
 
+builder.Services.AddLogging();
+
 builder.Services.AddHealthChecks();
 
 const string serviceName = "dustys-service";

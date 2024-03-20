@@ -23,5 +23,9 @@ scrape_configs:
     scrape_interval: 5s
     static_configs:
       - targets: ['otel-collector:1234']
+  # - job_name: 'blackbox'
+  #   scrape_interval: 5s
+  #   static_configs:
+  #     - targets: ['blackbox:9115']
 
       

@@ -3,21 +3,30 @@ using System.Net.Mail;
 using MailKit.Net.Smtp;
 using QRCoder;
 namespace TicketWebApp.Services;
-class EmailSender
-{
 
+partial class EmailSender
+{
+    private readonly ILogger<EmailSender> logger;
     private string secretSender { get; set; }
     private string fromEmail { get; set; }
 
-    public EmailSender(IConfiguration config)
+    public EmailSender(IConfiguration config, ILogger<EmailSender> logger)
     {
-        secretSender = config["DUSTY_SECRET"] ?? throw new Exception("Missing dusty email config");
-        fromEmail = config["DUSTYS_EMAIL"] ?? throw new Exception("Missing dusty email password config");
+        secretSender = config["DustySecret"] ?? throw new Exception("Missing dusty email config");
+        fromEmail = config["DustysEmail"] ?? throw new Exception("Missing dusty email password config");
+
+        this.logger = logger;
     }
+
+    [LoggerMessage(Level = LogLevel.Information, Message = "Dusty - EmailSender: Sending an Email.")]
+#pragma warning disable SYSLIB1015 // Argument is not referenced from the logging message
+    public static partial void LogAttemptingToSendAnEmail(ILogger logger, string description);
+#pragma warning restore SYSLIB1015 // Argument is not referenced from the logging message
 
     public string sendEmail(MailAddress ReceiverEmail,
                             Guid ticketId)
     {
+        LogAttemptingToSendAnEmail(logger,$"Sending Email for ticket {ticketId}");
         try
         {
             var from = new MailAddress(fromEmail, "TicketsRUs");
@@ -63,7 +72,7 @@ class EmailSender
         }
         catch
         {
-            return "Bad Exception Happend";
+            return "Bad Exception Happened";
         }
     }
 }
