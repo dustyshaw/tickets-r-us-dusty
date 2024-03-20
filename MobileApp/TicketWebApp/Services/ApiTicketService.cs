@@ -94,7 +94,7 @@ public partial class ApiTicketService : ITicketService
 
     public async Task<Ticket> AddTicket(Ticket ticket)
     {
-        
+
 
         using var context = await dbFactory.CreateDbContextAsync();
 

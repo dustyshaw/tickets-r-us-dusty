@@ -26,7 +26,7 @@ partial class EmailSender
     public string sendEmail(MailAddress ReceiverEmail,
                             Guid ticketId)
     {
-        LogAttemptingToSendAnEmail(logger,$"Sending Email for ticket {ticketId}");
+        LogAttemptingToSendAnEmail(logger, $"Sending Email for ticket {ticketId}");
         try
         {
             var from = new MailAddress(fromEmail, "TicketsRUs");
