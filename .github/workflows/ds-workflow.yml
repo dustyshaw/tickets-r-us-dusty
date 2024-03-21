@@ -12,7 +12,7 @@ jobs:
       - name: Docker compose down first
         run: |
           pwd
-          cd ./ticketsrus-dusty-mustafa-ethan/MobileApp/dscompose
+          cd ./tickets-r-us-dusty/MobileApp/dscompose
           docker compose down -v     
       - name: Remove old stuff?
         run: rm -rf ./tickets-r-us-dusty/ 
