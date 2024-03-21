@@ -21,8 +21,8 @@ services:
     environment:
       - TicketsDB=user id=postgres; password=postgres; server=db; database=postgres;
       - ASPNETCORE_ENVIRONMENT=Development
-      - DustySecret=${DUSTYSECRET:?error}
-      - DustysEmail=${DUSTYSEMAIL:?error}
+      - DustySecret=${DUSTYSECRET}
+      - DustysEmail=${DUSTYSEMAIL}
     ports:
       - "5932:8080"   # website will be found at localhost:7070 
     networks:
