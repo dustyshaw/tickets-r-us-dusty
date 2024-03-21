@@ -34,6 +34,9 @@ public partial class ApiTicketService : ITicketService
 
     public async Task<Ticket> CreateNewTicket(AddTicketRequest newRequest)
     {
+        MyMetrics.EventsMetic.NumberOfCallsForCreateTicket++;
+        MyMetrics.EventsMetic.NumberOfUnscannedTickets++;
+
         LogCreateTicketServiceCall(logger, $"Adding ticket with event id {newRequest.EventId}");
 
         using var context = await dbFactory.CreateDbContextAsync();
@@ -59,6 +62,7 @@ public partial class ApiTicketService : ITicketService
 
     public async Task<List<Ticket>> GetAll()
     {
+        MyMetrics.EventsMetic.histogram.Record(1);
         LogTicketServiceCall(logger, "Getting All Tickets");
 
         using var context = await dbFactory.CreateDbContextAsync();
@@ -69,6 +73,7 @@ public partial class ApiTicketService : ITicketService
 
     public async Task<TicketStatus> ScanTicket(Guid TicketId, int EventId)
     {
+        MyMetrics.EventsMetic.NumberOfUnscannedTickets--;
         using var context = await dbFactory.CreateDbContextAsync();
 
         Ticket? tuc = await context.Tickets.FirstOrDefaultAsync(x => x.Id == TicketId);
@@ -94,7 +99,7 @@ public partial class ApiTicketService : ITicketService
 
     public async Task<Ticket> AddTicket(Ticket ticket)
     {
-
+        MyMetrics.EventsMetic.NumberOfCallsForCreateTicket++;
 
         using var context = await dbFactory.CreateDbContextAsync();
 

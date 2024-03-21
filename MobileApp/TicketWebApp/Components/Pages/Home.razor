@@ -15,6 +15,7 @@ Buy Tickets and scan your ticket at the gate.<br />
 
 <br />
 <button @onclick="CountUp">Up</button>
+<button @onclick="CountDown">Down</button>
 
 @if (SuccessMessage is not null)
 {
@@ -23,7 +24,13 @@ Buy Tickets and scan your ticket at the gate.<br />
 
 @code {
     public string SuccessMessage = "";
-    public void GetEvent() {
+
+    protected override void OnInitialized()
+    {
+        MyMetrics.EventsMetic.NumberOfActiveusersNumber++;
+    }
+    public void GetEvent() 
+    {
         try
         {
             eventService.GetEvent(1);
@@ -33,5 +40,15 @@ Buy Tickets and scan your ticket at the gate.<br />
         {
             SuccessMessage = "Something went wrong getting event!";
         }
+    }
+
+    public void CountUp() 
+    {
+        MyMetrics.EventsMetic.NumberOfUpDownClicks.Add(1);
+    }
+
+    public void CountDown() 
+    {
+        MyMetrics.EventsMetic.NumberOfUpDownClicks.Add(-1);
     }
 }
