@@ -9,13 +9,13 @@ jobs:
       - name: See where I'm at
         run: |
           ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
-      - name: Docker compose down first
-        run: |
-          pwd
-          cd ./ticketsrus-dusty-mustafa-ethan/MobileApp/dscompose
-          docker compose down -v     
-      - name: Remove old stuff?
-        run: rm -rf ./tickets-r-us-dusty/ 
+      # - name: Docker compose down first
+      #   run: |
+      #     pwd
+      #     cd ./ticketsrus-dusty-mustafa-ethan/MobileApp/dscompose
+      #     docker compose down -v     
+      # - name: Remove old stuff?
+      #   run: rm -rf ./tickets-r-us-dusty/ 
 
       - name: Check out repository code
         run: |
