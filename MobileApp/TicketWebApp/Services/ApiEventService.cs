@@ -25,9 +25,7 @@ public partial class ApiEventService : IEventService
     }
 
     [LoggerMessage(Level = LogLevel.Information, Message = "Dusty - ApiEventService: Get All Events.")]
-#pragma warning disable SYSLIB1015 // Argument is not referenced from the logging message
     public static partial void LogAddEventServiceCall(ILogger logger, string description);
-#pragma warning restore SYSLIB1015 // Argument is not referenced from the logging message
 
 
     [LoggerMessage(Level = LogLevel.Critical, Message = "Dusty - ApiEventService: Get Single Event.")]

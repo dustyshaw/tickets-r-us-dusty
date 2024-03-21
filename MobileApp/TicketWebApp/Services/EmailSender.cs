@@ -12,8 +12,9 @@ partial class EmailSender
 
     public EmailSender(IConfiguration config, ILogger<EmailSender> logger)
     {
-        secretSender = config["DustySecret"] ?? throw new Exception("Missing dusty email config");
-        fromEmail = config["DustysEmail"] ?? throw new Exception("Missing dusty email password config");
+        //secretSender = config["DustySecret"] ?? throw new Exception("Missing dusty email config");
+        //fromEmail = config["DustysEmail"] ?? throw new Exception("Missing dusty email password config");
+
 
         this.logger = logger;
     }
