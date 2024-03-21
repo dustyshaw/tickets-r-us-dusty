@@ -5,6 +5,7 @@ jobs:
   Dusty-Deploy-Pipeline:
     runs-on: dusty
     steps:
+      - uses: actions/checkout@v4
       - name: See where I'm at
         run: |
           ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
