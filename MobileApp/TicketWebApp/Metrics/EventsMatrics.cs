@@ -19,9 +19,9 @@ public static class EventsMetic
         "UpAndDownCounter",
          description: "Counts the number of up and down clicks");
 
-    
+
     public static int NumberOfCallsForCreateTicket = 0;
-    public static ObservableCounter<int> NumberObservations = EventsMeter.CreateObservableCounter<int>("CreateTicketObserver", () => NumberOfCallsForCreateTicket );
+    public static ObservableCounter<int> NumberObservations = EventsMeter.CreateObservableCounter<int>("CreateTicketObserver", () => NumberOfCallsForCreateTicket);
 
 
     public static int NumberOfUnscannedTickets = 0;
