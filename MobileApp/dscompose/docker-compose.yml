@@ -88,7 +88,7 @@ services:
       - GF_AUTH_DISABLE_LOGIN_FORM=true
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - grafana-data:/var/lib/grafana
+      - grafana-data:/var/lib/grafana # THIS saves the dashboards for grafana
       - ./grafana/provisioning:/etc/grafana/provisioning
     restart: unless-stopped
     ports:
