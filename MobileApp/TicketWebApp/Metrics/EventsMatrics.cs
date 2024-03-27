@@ -32,6 +32,6 @@ public static class EventsMetic
     public static ObservableGauge<int> ActiveUsersGauge = EventsMeter.CreateObservableGauge<int>("Gauge", () => NumberOfActiveusersNumber);
 
 
-    public static Histogram<int> histogram = EventsMeter.CreateHistogram<int>("MyHistogram");
+    public static Histogram<long> histogram = EventsMeter.CreateHistogram<long>("MyHistogram");
 
 }

@@ -100,7 +100,7 @@ public partial class ApiTicketService : ITicketService
         TicketsHaveChanged?.Invoke(this, new EventArgs());
 
         watch.Stop();
-        MyMetrics.EventsMetic.histogram.Record(Convert.ToInt32(watch.ElapsedMilliseconds));
+        MyMetrics.EventsMetic.histogram.Record(watch.ElapsedMilliseconds);
 
         return TicketStatus.Success;
     }
