@@ -62,10 +62,12 @@ public partial class ApiTicketService : ITicketService
 
     public async Task<List<Ticket>> GetAll()
     {
-        MyMetrics.EventsMetic.histogram.Record(1);
+        
+        
         LogTicketServiceCall(logger, "Getting All Tickets");
 
         using var context = await dbFactory.CreateDbContextAsync();
+       
         return await context.Tickets
             .Include(t => t.Event)
             .ToListAsync();
@@ -73,6 +75,9 @@ public partial class ApiTicketService : ITicketService
 
     public async Task<TicketStatus> ScanTicket(Guid TicketId, int EventId)
     {
+        var watch = new System.Diagnostics.Stopwatch();
+        watch.Start();
+
         MyMetrics.EventsMetic.NumberOfUnscannedTickets--;
         using var context = await dbFactory.CreateDbContextAsync();
 
@@ -93,6 +98,9 @@ public partial class ApiTicketService : ITicketService
         await context.SaveChangesAsync();
 
         TicketsHaveChanged?.Invoke(this, new EventArgs());
+
+        watch.Stop();
+        MyMetrics.EventsMetic.histogram.Record(Convert.ToInt32(watch.ElapsedMilliseconds));
 
         return TicketStatus.Success;
     }
