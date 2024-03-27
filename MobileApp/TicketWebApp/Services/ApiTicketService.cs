@@ -62,12 +62,12 @@ public partial class ApiTicketService : ITicketService
 
     public async Task<List<Ticket>> GetAll()
     {
-        
-        
+
+
         LogTicketServiceCall(logger, "Getting All Tickets");
 
         using var context = await dbFactory.CreateDbContextAsync();
-       
+
         return await context.Tickets
             .Include(t => t.Event)
             .ToListAsync();
