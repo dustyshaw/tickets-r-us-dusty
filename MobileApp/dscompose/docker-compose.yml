@@ -11,8 +11,8 @@ services:
       - POSTGRES_HOST=postgres
     volumes:
       - ../TestsRUS/20240212.07.58.45.sql:/docker-entrypoint-initdb.d/initDb.sql
-    networks:
-      otel:
+    # networks:
+    #   otel:
 
   blazorapp:
     depends_on:
@@ -25,8 +25,8 @@ services:
       - DustysEmail=${DUSTYSEMAIL}
     ports:
       - "5932:8080"   # website will be found at localhost:7070 
-    networks:
-      otel:
+    # networks:
+    #   otel:
     healthcheck:
       test: wget --tries=1 http://localhost:8080/healthcheck || exit 1
       interval: 2s
@@ -45,8 +45,8 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - ./blackbox/blackbox.yml:/etc/blackbox/blackbox.yml  # change this to use ${PWD} ?
     command: --config.file=/etc/blackbox/blackbox.yml
-    networks:
-      otel: # not sure what this does?
+    # networks:
+    #   otel: # not sure what this does?
 
   prometheus:
     image: prom/prometheus:v2.43.0
@@ -61,8 +61,8 @@ services:
       - prometheus:/prometheus
     depends_on:
       - blackbox
-    networks:
-      otel: # not sure what this does...
+    # networks:
+    #   otel: # not sure what this does...
 
   loki:
     # https://github.com/grafana/loki/releases
@@ -76,8 +76,8 @@ services:
     restart: unless-stopped
     ports:
       - 2100:3100
-    networks:
-      otel:
+    # networks:
+    #   otel:
 
   grafana:
     image: grafana/grafana:9.4.7
@@ -96,8 +96,8 @@ services:
     depends_on:
       - prometheus
       - loki
-    networks:
-      otel: # not sure what this does....
+    # networks:
+    #   otel: # not sure what this does....
 
   otel-collector:
     # https://github.com/open-telemetry/opentelemetry-collector-contrib/releases
@@ -115,33 +115,56 @@ services:
       - 9205:55679  # zpages
       - 13130:13133 # Health check Need to change?
       - 1234:1234
-    networks:
-      otel:
+    # networks:
+    #   otel:
   
   zipkin:
     image: openzipkin/zipkin
     container_name: zipkin
     ports:
       - 9405:9411
-    networks:
-      otel:
+    # networks:
+    #   otel:
   
-  proxy:
-    image: nginx
-    container_name: dusty_proxy
-    ports:
-      - 7634:80
-    networks:
-      otel:
-    volumes:
-      - ./nginx-default.conf:/etc/nginx/conf.d/default.conf
+  # proxy:
+  #   image: nginx
+  #   container_name: dusty_proxy
+  #   # ports:
+  #     # - 7634:80
+  #   networks:
+  #     otel:
+  #   volumes:
+  #     - ./nginx-default.conf:/etc/nginx/conf.d/default.conf
 
-networks:
-  databaseTunnel:
-    driver: bridge
-  otel:
+  swag:
+    image: lscr.io/linuxserver/swag
+    container_name: swag_dusty
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Denver
+      - URL=tickets-r-us.duckdns.org
+      - SUBDOMAINS=www,
+      - VALIDATION=duckdns
+      - DUCKDNSTOKEN=9c37600d-0297-43db-9214-8b3f2497c93e
+      - STAGING=true #optional
+    volumes:
+      - swag-data:/config
+      - ./nginx-default.conf:/config/nginx/site-confs/mysite.conf
+    ports:
+      - 2666:443
+    #   - 80:80 #optional
+    restart: unless-stopped
+
+# networks:
+#   databaseTunnel:
+#     driver: bridge
+#   otel:
 
 volumes:
   loki:
   prometheus:
   grafana-data:
+  swag-data:
