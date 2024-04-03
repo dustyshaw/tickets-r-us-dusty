@@ -39,6 +39,12 @@ jobs:
           cd ./tickets-r-us-dusty/MobileApp/
           dotnet build --warnaserror
 
+      - name: Kubethings
+        run: |
+          docker build -t 144.17.92.12:5000/dusty/blazor-web:1 .
+          docker push 144.17.92:5000/dusty/blazor-web:1
+          kubectl apply -f kube/
+
       - name: Integration Tests
         run: |
           cd ./tickets-r-us-dusty/MobileApp/TestsRUS/     
