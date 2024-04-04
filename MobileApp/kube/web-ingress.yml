@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   namespace: dusty
-  name: blazor-web-ingress
+  name: blazor-web-ingress2
 spec:
   ingressClassName: nginx
   rules:
@@ -13,6 +13,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: blazor-web-ingress
+            name: blazor-web-service
             port:
               number: 80
