@@ -34,11 +34,11 @@ spec:
         - containerPort: 5432
         env:
         - name: POSTGRES_USER
-          value: dustyshaw
+          value: postgres
         - name: POSTGRES_PASSWORD
-          value: mypassword
+          value: postgres
         - name: POSTGRES_DB
-          value: dustydb
+          value: postgres
         volumeMounts:
         - name: postgresstorage
           mountPath: /var/lib/postgresql/data
