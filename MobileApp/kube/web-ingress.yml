@@ -13,6 +13,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: blazor-web-service
+            name: blazor-web-ingress
             port:
               number: 80
