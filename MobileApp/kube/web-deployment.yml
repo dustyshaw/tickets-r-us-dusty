@@ -20,3 +20,6 @@ spec:
         image: 144.17.92.12:5000/dusty/blazor-web:1
         ports:
         - containerPort: 8080
+        env:
+        - name: TicketsDB
+          value: user id=postgres; Server=blazor-web-db-service;password=postgres;database=postgres;
