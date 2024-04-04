@@ -50,7 +50,7 @@ jobs:
 
       - name: Integration Tests
         run: |
-          cd ./tickets-r-us-dusty/MobileApp/TestsRUS/     
+          cd ./tickets-r-us-dusty/MobileApp/TestsRUS/
           dotnet test   
 
       - name: Unit Tests
