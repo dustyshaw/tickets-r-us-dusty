@@ -5,6 +5,7 @@ This project features a CI/CD pipeline leveraging Azure and Github Actions to fa
 ### Tech Used
 - Blazor Web App and MAUI Mobile App (.NET)
 - SQLite DB
+
 **Telemetry**
   - Docker
   - Github Actions
