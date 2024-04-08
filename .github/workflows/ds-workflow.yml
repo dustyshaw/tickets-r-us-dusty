@@ -44,9 +44,9 @@ jobs:
           cd ./tickets-r-us-dusty/MobileApp/
           docker build -t 144.17.92.12:5000/dusty/blazor-web:1 .
           docker push 144.17.92.12:5000/dusty/blazor-web:1
+          
+          # kubectl -n dusty1 create configmap blazor-web-postgres-init --from-file=TestsRUS/20240212.07.58.45.sql
           kubectl apply -f kube/
-
-          kubectl -n dusty1 create configmap blazor-web-postgres-init --from-file=TestsRUS/20240212.07.58.45.sql
 
       - name: Integration Tests
         run: |
