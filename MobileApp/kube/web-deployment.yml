@@ -23,3 +23,5 @@ spec:
         env:
         - name: TicketsDB
           value: user id=postgres; Server=blazor-web-db-service;password=postgres;database=postgres;
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Development"
