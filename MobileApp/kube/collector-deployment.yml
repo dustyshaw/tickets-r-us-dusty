@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: dusty1
+  name: otel-collector-deployment
+  labels:
+    app: otel-collector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: otel-collector
+  template:
+    metadata:
+      labels:
+        app: otel-collector
+    spec:
+      containers:
+      - name: otel-collector
+        image: otel/opentelemetry-collector-contrib:0.75.0
+        command: ["--config=/etc/otel-collector-config.yaml"]
+        ports:
+        - containerPort: 4317
+        volumeMounts:
+        - name: otel-config-volume
+          mountPath: /var/lib/postgresql/data
+          subPath: init.sql
+      volumes:
+      - name: otel-config-volume
+        configMap: 
+          name: otel-config
+      
