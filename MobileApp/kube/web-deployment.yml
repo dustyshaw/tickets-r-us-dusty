@@ -21,7 +21,7 @@ spec:
         ports:
         - containerPort: 8080
         env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: Development
         - name: TicketsDB
           value: user id=postgres; Server=blazor-web-db-service;password=postgres;database=postgres;
-        - name: ASPNETCORE_ENVIRONMENT
-          value: "Development"
