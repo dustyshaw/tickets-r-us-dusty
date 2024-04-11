@@ -35,3 +35,6 @@ spec:
       - name: datasources
         configMap:
           name: grafana-datasource-config
+      - name: dashboards
+        configMap:
+          name: dashboards.yml
