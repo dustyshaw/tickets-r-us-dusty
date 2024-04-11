@@ -21,3 +21,18 @@ spec:
         command: ["--config=/etc/grafana-config.yaml"]
         ports:
         - containerPort: 3000
+        env:
+        - name: GF_AUTH_ANONYMOUS_ENABLED
+          value: true
+        - name: GF_AUTH_ANONYMOUS_ORG_ROLE
+          value: Admin
+        - name: GF_AUTH_DISABLE_LOGIN_FORM
+          value: true
+        volumeMounts:
+        - name: datasources
+          mountPath: /etc/grafana/provisioning/datasources/datasource.yml
+          subPath: grafana-datasource.yml
+      volumes:
+      - name: datasources
+        configmap:
+          name: grafana-datasource-config
