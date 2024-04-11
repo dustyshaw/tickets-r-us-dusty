@@ -33,5 +33,5 @@ spec:
           subPath: grafana-datasource.yml
       volumes:
       - name: datasources
-        configmap:
+        configMap:
           name: grafana-datasource-config
