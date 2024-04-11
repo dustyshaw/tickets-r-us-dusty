@@ -22,11 +22,11 @@ spec:
         - containerPort: 3000
         env:
         - name: GF_AUTH_ANONYMOUS_ENABLED
-          value: true
+          value: "true"
         - name: GF_AUTH_ANONYMOUS_ORG_ROLE
           value: Admin
         - name: GF_AUTH_DISABLE_LOGIN_FORM
-          value: true
+          value: "true"
         volumeMounts:
         - name: datasources
           mountPath: /etc/grafana/provisioning/datasources/datasource.yml
