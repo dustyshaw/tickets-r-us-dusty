@@ -16,3 +16,4 @@ spec:
             name: blazor-web-service
             port:
               number: 80
+              
