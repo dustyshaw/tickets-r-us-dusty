@@ -53,8 +53,8 @@ jobs:
           kubectl -n dusty1 delete configmap otel-config || true
           kubectl -n dusty1 create configmap otel-config --from-file=otel-collector-config.yml
 
-          kubectl -n dusty1 delete configmap grafana-config || true
-          kubectl -n dusty1 create configmap grafana-config --from-file=grafana-config.yml
+          kubectl -n dusty1 delete configmap grafana-datasource-config || true
+          kubectl -n dusty1 create configmap grafana-datasource-config --from-file=grafana-datasource.yml
           cd ..
           
           kubectl apply -f kube/
