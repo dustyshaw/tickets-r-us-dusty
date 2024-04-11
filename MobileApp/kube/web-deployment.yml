@@ -25,3 +25,5 @@ spec:
           value: Development
         - name: TicketsDB
           value: user id=postgres; Server=blazor-web-db-service;password=postgres;database=postgres;
+        - name: COLLECTOR_URL
+          value: http://otel-collector:4317

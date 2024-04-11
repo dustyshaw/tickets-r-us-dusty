@@ -48,7 +48,7 @@ builder.Logging.AddOpenTelemetry(options =>
                 .AddService(serviceName))
         .AddOtlpExporter(opt =>
             {
-                opt.Endpoint = new Uri("http://otel-collector:4317"); // in docker compose, this is the OTLP receiver port
+                opt.Endpoint = new Uri(builder.Configuration["COLLECTOR_URL"] ?? throw new NullReferenceException("env variable not set: COLLECTOR_URL")); // in docker compose, this is the OTLP receiver port
             })
         .AddConsoleExporter(); // optional
 });

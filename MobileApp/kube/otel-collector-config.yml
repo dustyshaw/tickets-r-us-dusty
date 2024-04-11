@@ -4,39 +4,39 @@ receivers:
       grpc:
       http:
 exporters:
-  prometheus:
-    endpoint: "0.0.0.0:1234"  # Magic endpoint for the zipkin 
-  otlp:
-    endpoint: tempo:4007
-    tls:
-      insecure: true
+  # prometheus:
+  #   endpoint: "0.0.0.0:1234"  # Magic endpoint for the zipkin 
+  # otlp:
+  #   endpoint: tempo:4007
+  #   tls:
+  #     insecure: true
   loki:
-    endpoint: http://loki:3100/loki/api/v1/push
+    endpoint: http://loki-service:3100/loki/api/v1/push
     tls:
       insecure: true
-  zipkin:
-    endpoint: "http://zipkin:9411/api/v2/spans"
-    format: proto
+  # zipkin:
+  #   endpoint: "http://zipkin:9411/api/v2/spans"
+  #   format: proto
 
 extensions:
-  health_check:
-  zpages:
-     endpoint: otel:55679
+  # health_check:
+  # zpages:
+  #    endpoint: otel:55679
 
 processors:
   # Data sources: traces, metrics, logs
   batch:
 
 service:
-  extensions: [zpages, health_check]  # Enable zpages
+  # extensions: [zpages, health_check]  # Enable zpages
   pipelines:
-    metrics:
-      receivers: [otlp]
-      exporters: [prometheus]
-    traces:
-      receivers: [otlp]
-      processors: [batch]
-      exporters: [zipkin]
+    # metrics:
+    #   receivers: [otlp]
+    #   exporters: [prometheus]
+    # traces:
+    #   receivers: [otlp]
+    #   processors: [batch]
+    #   exporters: [zipkin]
     logs:
       receivers: [otlp]
       processors: [batch]
