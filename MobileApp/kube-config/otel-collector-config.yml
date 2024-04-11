@@ -39,5 +39,5 @@ service:
     #   exporters: [zipkin]
     logs:
       receivers: [otlp]
-      processors: [batch]
+      processors: []
       exporters: [loki]
