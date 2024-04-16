@@ -1,4 +1,5 @@
 name: Build and deploy .NET Core application to Web App TicketsRUs
+run-name: Azure Runner
 on:
   push:
     branches:
