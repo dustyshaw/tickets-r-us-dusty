@@ -59,9 +59,11 @@ jobs:
           
           # kubectl apply -f kube/
 
+          RUN_ID=${{ github.run_id }}
+
           for file in ./kube/*; do
             # Apply the file using kubectl
-            kubectl apply -f "$file"
+            cat $file | envsubst | kubectl apply -f -
           done
 
       # - name: Integration Tests
