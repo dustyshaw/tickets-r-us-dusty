@@ -42,8 +42,8 @@ jobs:
       - name: Kubethings
         run: |
           cd ./tickets-r-us-dusty/MobileApp/
-          docker build -t 144.17.92.12:5000/dusty/blazor-web:1 .
-          docker push 144.17.92.12:5000/dusty/blazor-web:1
+          docker build -t 144.17.92.12:5000/dusty/blazor-web:$GITHUB_RUN_ID .
+          docker push 144.17.92.12:5000/dusty/blazor-web:$GITHUB_RUN_ID
           
 
           kubectl -n dusty1 delete configmap blazor-web-postgres-init || true
