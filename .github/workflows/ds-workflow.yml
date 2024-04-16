@@ -6,9 +6,9 @@ jobs:
     runs-on: dusty
     steps:
       # - uses: actions/checkout@v4
-      - name: See where I'm at
-        run: |
-          ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
+      # - name: See where I'm at
+      #   run: |
+      #     ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
       - name: Docker compose down first
         run: |
           pwd
@@ -57,7 +57,12 @@ jobs:
           kubectl -n dusty1 create configmap grafana-datasource-config --from-file=grafana-datasource.yml
           cd ..
           
-          kubectl apply -f kube/
+          # kubectl apply -f kube/
+
+          for file in ./kube/*; do
+            # Apply the file using kubectl
+            kubectl apply -f "$file"
+          done
 
       # - name: Integration Tests
       #   run: |

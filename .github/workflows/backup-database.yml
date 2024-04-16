@@ -9,4 +9,5 @@ jobs:
               run: |
                 CONTAINER_NAME=$(kubectl -n dusty1 get pods --no-headers -o custom-columns=":metadata.name" | grep "blazor-web-db-deployment")
                 kubectl -n dusty1 exec -t $CONTAINER_NAME -- \
-                    pg_dumpall -c -U postgres > /home/dusty/actions-runner/_work/tickets-r-us-dusty/tickets-r-us-dusty/tickets-r-us-dusty/MobileApp/Dumps
+                    pg_dumpall -c -U postgres \
+                    > /home/dusty/actions-runner/_work/tickets-r-us-dusty/tickets-r-us-dusty/tickets-r-us-dusty/MobileApp/Dumps/dump.sql
