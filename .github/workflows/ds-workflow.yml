@@ -59,7 +59,7 @@ jobs:
           
           # kubectl apply -f kube/
 
-          RUN_ID=${{ github.run_id }}
+          export RUN_ID=${{ github.run_id }}
 
           for file in ./kube/*; do
             # Apply the file using kubectl
