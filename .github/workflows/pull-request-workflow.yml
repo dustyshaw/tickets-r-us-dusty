@@ -11,10 +11,11 @@ jobs:
         uses: actions/checkout@v4
       - name: deploy kube environment
         run: |
+            
             export PULL_REQUEST_ID=${{ github.event.pull_request.id }}
 
-            kubectl create namespace dusty-pr-$PULL_REQUEST_ID
-
+            kubectl create namespace dusty-pr-$PULL_REQUEST_ID || true
+            pwd
             kubectl -n dusty-pr-$PULL_REQUEST_ID delete configmap blazor-web-postgres-init || true
             kubectl -n dusty-pr-$PULL_REQUEST_ID create configmap blazor-web-postgres-init --from-file=TestsRUS/20240212.07.58.45.sql
 
