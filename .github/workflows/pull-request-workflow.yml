@@ -1,0 +1,13 @@
+name: PR Action Workflow
+run-name: PULL REQUEST
+on:
+    pull_request:
+        types: [opened]
+jobs:
+  deploy-to-kubernetes:
+    runs-on: dusty
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+    
+          
