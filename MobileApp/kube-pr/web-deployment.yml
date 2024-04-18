@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: dusty1
+  namespace: ${NAMESPACE}
   name: blazor-web-deployment
   labels:
     app: blazor-web

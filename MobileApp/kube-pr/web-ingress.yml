@@ -1,12 +1,12 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  namespace: dusty1
+  namespace: ${NAMESPACE}
   name: blazor-web-ingress
 spec:
   ingressClassName: nginx
   rules:
-  - host: dusty-second.duckdns.org
+  - host: ${PULL_REQUEST_ID}.dusty-second.duckdns.org
     http:
       paths:
       - path: /

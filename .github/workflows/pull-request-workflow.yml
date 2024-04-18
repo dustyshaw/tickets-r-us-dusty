@@ -13,11 +13,12 @@ jobs:
         run: |
             
             export PULL_REQUEST_ID=${{ github.event.pull_request.id }}
+            export NAMESPACE="dusty-pr-$PULL_REQUEST_ID"
 
-            kubectl create namespace dusty-pr-$PULL_REQUEST_ID || true
+            kubectl create namespace $NAMESPACE || true
             
-            kubectl -n dusty-pr-$PULL_REQUEST_ID delete configmap blazor-web-postgres-init || true
-            kubectl -n dusty-pr-$PULL_REQUEST_ID create configmap blazor-web-postgres-init --from-file=MobileApp/TestsRUS/20240212.07.58.45.sql
+            kubectl -n $NAMESPACE delete configmap blazor-web-postgres-init || true
+            kubectl -n $NAMESPACE create configmap blazor-web-postgres-init --from-file=MobileApp/TestsRUS/20240212.07.58.45.sql
 
             export RUN_SALT="pr-${PULL_REQUEST_ID}-${GITHUB_RUN_ID}"
             docker build -t 144.17.92.12:5000/dusty/blazor-web:pr-$RUN_SALT .
