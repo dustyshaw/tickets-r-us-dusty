@@ -9,5 +9,11 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v4
+      - name: deploy kube environment
+        run: |
+            export PULL_REQUEST_ID=${{ github.event.pull_request.id }}
+
+            kubectl create namespace dusty-pr-$PULL_REQUEST_ID
+
     
           
