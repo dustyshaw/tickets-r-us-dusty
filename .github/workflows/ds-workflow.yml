@@ -9,25 +9,25 @@ jobs:
       # - name: See where I'm at
       #   run: |
       #     ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
-      - name: Docker compose down first
-        run: |
-          pwd
-          cd ./tickets-r-us-dusty/MobileApp/dscompose
-          docker compose down -v
+      # - name: Docker compose down first
+      #   run: |
+      #     pwd
+      #     cd ./tickets-r-us-dusty/MobileApp/dscompose
+      #     docker compose down -v
 
-      - name: Remove old stuff?
-        run: rm -rf ./tickets-r-us-dusty/ 
+      # - name: Remove old stuff?
+      #   run: rm -rf ./tickets-r-us-dusty/ 
 
-      - name: Check out repository code
-        run: |
-          git clone "https://${{ secrets.DUSTYS_THIRD_GITHUB_SECRET }}@github.com/dustyshaw/tickets-r-us-dusty"
-          ls -a
+      # - name: Check out repository code
+      #   run: |
+      #     git clone "https://${{ secrets.DUSTYS_THIRD_GITHUB_SECRET }}@github.com/dustyshaw/tickets-r-us-dusty"
+      #     ls -a
 
-      - name: Docker Compose Up
-        run: |
-          cd ./tickets-r-us-dusty/MobileApp/dscompose
-          ls -a
-          docker compose up --build -d 
+      # - name: Docker Compose Up
+      #   run: |
+      #     cd ./tickets-r-us-dusty/MobileApp/dscompose
+      #     ls -a
+      #     docker compose up --build -d 
 
       # - name: Linting
       #   run: |
