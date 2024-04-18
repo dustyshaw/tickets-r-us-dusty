@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: dusty1
+  name: blazor-web-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: dusty-second.duckdns.org
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: blazor-web-service
+            port:
+              number: 80
+              

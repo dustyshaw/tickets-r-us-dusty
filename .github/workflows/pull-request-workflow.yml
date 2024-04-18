@@ -19,5 +19,13 @@ jobs:
             kubectl -n dusty-pr-$PULL_REQUEST_ID delete configmap blazor-web-postgres-init || true
             kubectl -n dusty-pr-$PULL_REQUEST_ID create configmap blazor-web-postgres-init --from-file=MobileApp/TestsRUS/20240212.07.58.45.sql
 
-    
+            export RUN_SALT="pr-${PULL_REQUEST_ID}-${GITHUB_RUN_ID}"
+            docker build -t 144.17.92.12:5000/dusty/blazor-web:pr-$RUN_SALT .
+            docker push -t 144.17.92.12:5000/dusty/blazor-web:pr-$RUN_SALT .
+
+            for file in ./kube/*; do
+                # Apply the file using kubectl
+                echo "------------------------------------------ APPLYING $file"
+                cat $file | envsubst | kubectl apply -f -
+            done  
           
