@@ -48,6 +48,9 @@ jobs:
 
           kubectl -n dusty1 delete configmap blazor-web-postgres-init || true
           kubectl -n dusty1 create configmap blazor-web-postgres-init --from-file=TestsRUS/20240212.07.58.45.sql
+          
+          kubectl -n dusty1 delete configmap dashboards || true
+          kubectl -n dusty1 create configmap dashboards --from-file=dashboards.yml
 
           cd ./kube-config
           kubectl -n dusty1 delete configmap otel-config || true
@@ -55,6 +58,7 @@ jobs:
 
           kubectl -n dusty1 delete configmap grafana-datasource-config || true
           kubectl -n dusty1 create configmap grafana-datasource-config --from-file=grafana-datasource.yml
+
           cd ..
           
           # kubectl apply -f kube/
