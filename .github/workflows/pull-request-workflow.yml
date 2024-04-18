@@ -17,7 +17,7 @@ jobs:
             kubectl create namespace dusty-pr-$PULL_REQUEST_ID || true
             
             kubectl -n dusty-pr-$PULL_REQUEST_ID delete configmap blazor-web-postgres-init || true
-            kubectl -n dusty-pr-$PULL_REQUEST_ID create configmap blazor-web-postgres-init --from-file=/MobileApp/TestsRUS/20240212.07.58.45.sql
+            kubectl -n dusty-pr-$PULL_REQUEST_ID create configmap blazor-web-postgres-init --from-file=TestsRUS/20240212.07.58.45.sql
 
     
           
