@@ -27,3 +27,15 @@ spec:
           value: user id=postgres; Server=blazor-web-db-service;password=postgres;database=postgres;
         - name: COLLECTOR_URL
           value: http://otel-collector:4317
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
