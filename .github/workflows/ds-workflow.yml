@@ -14,6 +14,7 @@ jobs:
         run: |
           pwd
           cd ./tickets-r-us-dusty/MobileApp/dscompose
+          pwd
           docker compose down -v
 
       - name: Remove old stuff?
