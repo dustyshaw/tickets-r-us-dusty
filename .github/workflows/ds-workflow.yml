@@ -42,7 +42,7 @@ jobs:
       #     cd ./tickets-r-us-dusty/MobileApp/ 
       #     dotnet build --warnaserror
 
-      - name: Kubethings
+      - name: Kubethings   
         run: |
           cd ./MobileApp/
           docker build -t 144.17.92.12:5000/dusty/blazor-web:$GITHUB_RUN_ID .
