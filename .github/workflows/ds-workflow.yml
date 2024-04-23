@@ -61,8 +61,9 @@ jobs:
           kubectl -n dusty1 delete configmap grafana-datasource-config || true
           kubectl -n dusty1 create configmap grafana-datasource-config --from-file=grafana-datasource.yml
           
+
           kubectl -n dusty1 delete configmap dashboards || true
-          kubectl -n dusty1 create configmap dashboards --from-file=dashboards.yml
+          kubectl -n dusty1 create configmap dashboards --from-file=.
 
           cd ..
           
