@@ -3,7 +3,13 @@ kind: Ingress
 metadata:
   namespace: dusty1
   name: blazor-web-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: cert-manager-webhook-duckdns-dusty-production
 spec:
+  tls:
+    - hosts:
+      - dusty-second.duckdns.org
+      secretName: dusty-kube-tls-production
   ingressClassName: nginx
   rules:
   - host: dusty-second.duckdns.org
