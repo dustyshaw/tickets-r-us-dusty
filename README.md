@@ -12,4 +12,4 @@ This project features a CI/CD pipeline leveraging Azure and Github Actions to fa
   - Azure
   - Grafana dashboards
   - OTLP
-  
+    
