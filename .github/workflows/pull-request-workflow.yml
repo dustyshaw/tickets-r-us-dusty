@@ -22,7 +22,7 @@ jobs:
 
             export RUN_SALT="pr-${PULL_REQUEST_ID}-${GITHUB_RUN_ID}"
             docker build -t 144.17.92.12:5000/dusty/blazor-web:pr-$RUN_SALT .
-            docker push -t 144.17.92.12:5000/dusty/blazor-web:pr-$RUN_SALT .
+            docker push -t 144.17.92.12:5000/dusty/blazor-web:pr-$RUN_SALT
 
             for file in ./kube/*; do
                 # Apply the file using kubectl
